@@ -1,0 +1,45 @@
+{%  extends 'base.html' %}
+{% block title %}
+    Главная страница
+{% endblock %}
+{% block menu %}
+         <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+          <li class="nav-item"><a href="/faqs" class="nav-link">FAQs</a></li>
+          <li class="nav-item"><a href="/abouts" class="nav-link">About</a></li>
+{% endblock %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row form-group">
+        <div class="col-10 form-group">
+            <label for=" ">Текст статьи</label>
+            {{ translateFrom.article }}
+            <!--<textarea class="form-control" id=" ">{{q}}</textarea>-->
+        </div>
+        <div class="col-2 form-group">
+            <button type="submit" class="btn btn-primary btn-sm"  style="top: 50%; position: relative;" >translate</button>
+        </div>
+    </div>
+</form>
+<br/>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row form-group">
+        <div class="col-10 form-group">
+            <label for=" ">Перевод Статьи</label>
+            {{ summaryForm.translate_text }}
+        </div>
+        <div class="col-2 form-group">
+            <button type="submit" class="btn btn-primary btn-sm" style="top: 50%; position: relative;">summary</button>
+        </div>
+    </div>
+</form>
+<br/>
+<div class="row">
+    <div class="col-10">
+        <label for=" ">Краткое содержание статьи"</label>
+            <textarea class="form-control" id=" " placeholder="Здесь будет отображаться краткое содержание статьи">{{ summ }}</textarea>
+    </div>
+</div>
+{% endblock %}
