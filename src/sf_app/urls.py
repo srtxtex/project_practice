@@ -10,6 +10,6 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('home', views.index, name='home'),
     path('faqs', views.faqs, name='faqs'),
-    path('about', views.about, name='about'),
+    path('abouts', views.abouts, name='abouts'),
     path('admin', admin.site.urls),
 ]

@@ -60,11 +60,11 @@ def faqs(request) -> HttpResponse:
     return render(request, 'faqs.html')
 
 
-def about(request) -> HttpResponse:
+def abouts(request) -> HttpResponse:
     '''
     Отрисовывает страниу About
     :param request: объект класса HttpRequest
     :return: объект класса HttpResponse
     '''
 
-    return render(request, 'about.html')
+    return render(request, 'abouts.html')

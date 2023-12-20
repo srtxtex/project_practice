@@ -13,7 +13,7 @@ class TranslateFrom(ModelForm):
         model = Translate
         fields = ['translated_article']
         widgets = {
-            'article': Textarea(attrs={
+            'translated_article': Textarea(attrs={
                 'placeholder':
                     'Вставьте сюда статью на английском, '
                     'которую нужно перевести',
