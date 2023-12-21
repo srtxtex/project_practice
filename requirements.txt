@@ -1,4 +1,5 @@
 Django
+tokenizers
 torch
 transformers
 pep8
