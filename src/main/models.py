@@ -4,6 +4,11 @@
 from django.db import models
 # Create your models here.
 
+class Original(models.Model):
+    '''
+    Модель формы Original
+    '''
+    original_article = models.TextField()
 
 class Translate(models.Model):
     '''
