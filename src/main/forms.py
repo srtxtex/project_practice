@@ -1,10 +1,28 @@
 '''
 Модуль с описанием форм в виде классов
 '''
-from django.forms import ModelForm, TextInput, Textarea
-from main.models import Translate, Summary
+from django.forms import ModelForm, Textarea
+from main.models import Original, Translate, Summary
 
 
+class OriginalFrom(ModelForm):
+    '''
+    Класс для генерации формы Original
+    '''
+    class Meta:
+        model = Original
+        fields = ['original_article']
+        widgets = {
+            'original_article': Textarea(attrs={
+                'placeholder':
+                    'Вставьте сюда статью на английском, '
+                    'которую нужно перевести',
+                'class': 'form-control',
+            })
+        }
+        labels = {
+            'original_article': 'Текст статьи'
+        }
 class TranslateFrom(ModelForm):
     '''
     Класс для генерации формы Translate
@@ -16,7 +34,7 @@ class TranslateFrom(ModelForm):
             'translated_article': Textarea(attrs={
                 'placeholder':
                     'Вставьте сюда статью на английском, '
-                    'которую нужно перевести',
+                    'по которой хотите получить краткое содержание',
                 'class': 'form-control',
             })
         }
@@ -33,8 +51,7 @@ class SummaryForm(ModelForm):
         widgets = {
             'summarize_article': Textarea(attrs={
                 'placeholder':
-                    'Вставьте сюда статью, '
-                    'по которой хотите получить краткое содержание',
+                    'Здесь будет краткое содержание статьи',
                 'class': 'form-control',
             })
         }

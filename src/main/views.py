@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from main.models import Translate, Summary
-from main.forms import TranslateFrom, SummaryForm
+from main.models import Original, Translate, Summary
+from main.forms import OriginalFrom, TranslateFrom, SummaryForm
+from shared.translate import translator
 
 """Модуль содержит функции обработки HTTP запросв и отрисовку представлений."""
 
@@ -14,6 +15,11 @@ def index(request) -> HttpResponse:
     :return: Объект класса HttpResponse
     '''
 
+    original_articls = list()
+    originals = Original.objects.all()
+    for original in originals:
+        original_articls.append(original.original_article)
+
     translated_articls = list()
     translates = Translate.objects.all()
     for translate in translates:
@@ -24,18 +30,26 @@ def index(request) -> HttpResponse:
     for summary in summaries:
         summarize_articls.append(summary.summarize_article)
 
+    original_article = request.POST.get('original_article')
     translated_article = request.POST.get('translated_article')
     summarize_article = request.POST.get('summarize_article')
 
     if (request.method == 'POST'):
+        if (original_article):
+            originalFrom = OriginalFrom(request.POST)
+            originalFrom.save()
         if (translated_article):
-            print(request.POST)
             translateFrom = TranslateFrom(request.POST)
             translateFrom.save()
         if (summarize_article):
             summaryForm = SummaryForm(request.POST)
             summaryForm.save()
 
+    if (original_article):
+        translated_article = translator(original_article)
+
+    if (not original_article and len(original_articls)):
+        original_article = original_articls[-1]
 
     if (not translated_article and len(translated_articls)):
         translated_article = translated_articls[-1]
@@ -43,12 +57,14 @@ def index(request) -> HttpResponse:
     if (not summarize_article and len(summarize_articls)):
         summarize_article = summarize_articls[-1]
 
+    originalFrom = OriginalFrom({'original_article': original_article})
     translateFrom = TranslateFrom({'translated_article': translated_article})
     summaryForm = SummaryForm({'summarize_article': summarize_article})
 
     return render(request, 'index.html',
-                  {'translateFrom': translateFrom,
-                   'summaryForm': summaryForm, 'summarize_article': summarize_article})
+                  {'originalFrom': originalFrom,
+                   'translateFrom': translateFrom,
+                   'summaryForm': summaryForm})
 
 
 def faqs(request) -> HttpResponse:

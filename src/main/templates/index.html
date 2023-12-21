@@ -14,10 +14,10 @@
     <div class="row form-group">
         <div class="col-10 form-group">
             <label for=" ">Текст статьи</label>
-            {{ translateFrom.translated_article }}
+            {{ originalFrom.original_article }}
         </div>
         <div class="col-2 form-group">
-            <button type="submit" class="btn btn-primary btn-sm"  style="top: 50%; position: relative;" >translate</button>
+            <button type="submit" class="btn btn-primary btn-sm"  style="top: 50%; position: relative;" >Translate</button>
         </div>
     </div>
 </form>
@@ -27,18 +27,21 @@
     <div class="row form-group">
         <div class="col-10 form-group">
             <label for=" ">Перевод Статьи</label>
-            {{ summaryForm.summarize_article }}
+            {{ translateFrom.translated_article }}
         </div>
         <div class="col-2 form-group">
-            <button type="submit" class="btn btn-primary btn-sm" style="top: 50%; position: relative;">summary</button>
+            <button type="submit" class="btn btn-primary btn-sm" style="top: 50%; position: relative;">Summary</button>
         </div>
     </div>
 </form>
 <br/>
-<div class="row">
-    <div class="col-10">
-        <label for=" ">Краткое содержание статьи</label>
-            <textarea class="form-control" id=" " placeholder="Здесь будет отображаться краткое содержание статьи">{{ summarize_article }}</textarea>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row form-group">
+        <div class="col-10 form-group">
+            <label for=" ">Краткое содержание статьи</label>
+            {{ summaryForm.summarize_article }}
+        </div>
     </div>
-</div>
+</form>
 {% endblock %}
