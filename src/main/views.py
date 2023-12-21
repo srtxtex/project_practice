@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from main.models import Original, Translate, Summary
 from main.forms import OriginalFrom, TranslateFrom, SummaryForm
 from shared.translate import translator
+from shared.summary import summarizer
 
 """Модуль содержит функции обработки HTTP запросв и отрисовку представлений."""
 
@@ -47,6 +48,9 @@ def index(request) -> HttpResponse:
 
     if (original_article):
         translated_article = translator(original_article)
+
+    if (translated_article):
+        summarize_article = summarizer(translated_article)
 
     if (not original_article and len(original_articls)):
         original_article = original_articls[-1]
