@@ -2,3 +2,4 @@ Django
 torch
 transformers
 pep8
+pytest
