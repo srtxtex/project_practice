@@ -1,6 +1,7 @@
 Django
 tokenizers
 sentencepiece
+protobuf
 torch
 transformers
 pep8
